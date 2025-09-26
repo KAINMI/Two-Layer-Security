@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Caesar Cipher</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var params = new URLSearchParams(window.location.search);
+            var secretText = params.get("secret");
+            var mode = params.get("mode");
+
+            var inputArea = document.getElementById("input-text");
+            var outputArea = document.getElementById("output-text");
+            var encodeRadio = document.getElementById("encode");
+            var decodeRadio = document.getElementById("decode");
+            var hInput = document.getElementById("heading-input");
+            var hOutput = document.getElementById("heading-output");
+
+            if (mode === "decode") {
+                decodeRadio.checked = true;
+                hInput.textContent = "Ciphertext";
+                hOutput.textContent = "Plaintext";
+                if (secretText) {
+                    inputArea.value = decodeURIComponent(secretText);
+                }
+                outputArea.value = "";
+            }
+
+            // Switching modes clears input/output
+            encodeRadio.addEventListener("click", function () {
+                hInput.textContent = "Plaintext";
+                hOutput.textContent = "Ciphertext";
+                inputArea.value = "";
+                outputArea.value = "";
+            });
+
+            decodeRadio.addEventListener("click", function () {
+                hInput.textContent = "Ciphertext";
+                hOutput.textContent = "Plaintext";
+                inputArea.value = "";
+                outputArea.value = "";
+            });
+        });
+    </script>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+
+    <!-- Your project-wide stylesheet -->
+    <link rel="stylesheet" href="../style.css" />
+    
+
+    <style>
+        body {
+            padding-top: 70px;
+            background-color: rgb(229, 229, 229);
+        }
+
+        .navbar-custom {
+            background-color: rgb(229, 229, 229);
+            box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar-custom .nav-link {
+            color: #0d6efd;
+        }
+
+        .navbar-custom .nav-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-custom fixed-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold text-primary" href="../index.html">TLS</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarNav" aria-controls="navbarNav"
+                aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="../index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../index.html#about">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../htu.html">How to Use</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main -->
+    <main class="container py-5">
+        <div id="heading-container" class="text-center mb-4">
+            <h2 class="fw-bold text-primary" style="letter-spacing:8px; font-style:italic;">CAESAR CIPHER</h2>
+        </div>
+
+        <div id="main-container" class="row gx-4 gy-4">
+            <!-- Controls Box -->
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="box shadow-sm p-3 bg-white rounded h-100">
+                    <div class="heading border-bottom pb-2 mb-3">
+                        <h2 class="text-primary">Controls</h2>
+                    </div>
+                    <form id="controls">
+                        <div class="row mb-3">
+                            <div class="col">
+                                <input type="radio" name="code" id="encode" value="encode" checked />
+                                <label for="encode" class="ms-2">Encode</label>
+                            </div>
+                            <div class="col">
+                                <input type="radio" name="code" id="decode" value="decode" />
+                                <label for="decode" class="ms-2">Decode</label>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col">
+                                <label class="form-label">Shift Key:</label>
+                                <input type="text" class="form-control text-center" id="shift-input" maxlength="4" value="3" />
+                            </div>
+                            <div class="col">
+                                <label class="form-label">Modulo:</label>
+                                <input type="text" class="form-control text-center" id="mod-input" maxlength="4" value="36" />
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">ALPHABET</label>
+                            <input type="text" class="form-control text-center" id="alphabet-input" value="abcdefghijklmnopqrstuvwxyz0123456789" />
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col">
+                                <label class="form-label">LETTER CASE</label>
+                                <select class="form-select" id="letter-case">
+                                    <option value="1">Maintain Case</option>
+                                    <option value="2">Lower Case</option>
+                                    <option value="3">Upper Case</option>
+                                </select>
+                            </div>
+                            <div class="col">
+                                <label class="form-label">FOREIGN CHARS</label>
+                                <select class="form-select" id="foreign-chars">
+                                    <option value="1">Remove</option>
+                                    <option value="2">Ignore</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <button type="submit" id="submit" class="btn btn-primary w-100">Submit</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Plaintext Box -->
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="box shadow-sm p-3 bg-white rounded h-100">
+                    <div class="heading border-bottom pb-2 mb-3">
+                        <h2 id="heading-input" class="text-primary">Plaintext</h2>
+                    </div>
+                    <textarea placeholder="Enter plaintext" rows="20" id="input-text" class="form-control" style="height: calc(90% - 50px);"></textarea>
+                    <p id="status" class="mt-2"></p>
+                </div>
+            </div>
+
+            <!-- Ciphertext Box -->
+            <div class="col-12 col-md-12 col-lg-4">
+                <div class="box shadow-sm p-3 bg-white rounded h-100">
+                    <div class="heading border-bottom pb-2 mb-3">
+                        <h2 id="heading-output" class="text-primary">Ciphertext</h2>
+                    </div>
+                    <textarea readonly placeholder="Output" rows="20" id="output-text" class="form-control" style="height: calc(90% - 50px);"></textarea>
+                </div>
+            </div>
+
+            <!-- Next Button -->
+            <div class="next text-center mt-4">
+                <button type="button" onclick="goToSteganography()" class="btn btn-primary px-4 py-2">NEXT</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-primary text-white pt-5 pb-4 mt-auto">
+        <div class="container text-md-left">
+            <div class="row">
+                <!-- Brand -->
+                <div class="col-md-4 mb-4">
+                    <h4 class="fw-bold"><i class="bi bi-shield-lock-fill me-2"></i> Two Layer Security</h4>
+                    <p>A dual-protection system that combines encryption and steganography to protect your sensitive data from prying eyes.</p>
+                </div>
+
+                <!-- Links -->
+                <div class="col-md-3 mb-4">
+                    <h5 class="fw-bold">Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="../index.html#about" class="text-white text-decoration-none">About</a></li>
+                        <li><a href="../htu.html" class="text-white text-decoration-none">How to Use</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact -->
+                <div class="col-md-5 mb-4">
+                    <h5 class="fw-bold">Contact</h5>
+                    <ul class="list-unstyled">
+                        <li><i class="bi bi-envelope me-2"></i> kainpaul7@gmail.com</li>
+                        <li><i class="bi bi-geo-alt me-2"></i> Bamenda, Cameroon</li>
+                        <li><i class="bi bi-telephone me-2"></i> +237 673221859</li>
+                    </ul>
+                    <div class="mt-3">
+                        <a href="#" class="text-white me-3"><i class="bi bi-twitter"></i></a>
+                        <a href="#" class="text-white me-3"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="text-white"><i class="bi bi-github"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-4 border-top pt-3">
+                <small>&copy; 2025 Two Layer Security. All rights reserved.</small>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Next page redirect -->
+    <script>
+        function goToSteganography() {
+            var text = document.getElementById("output-text").value;
+            var encodedText = encodeURIComponent(text);
+            window.location.href = "../steganography-web-app-demo-main/index.html?secret=" + encodedText;
+        }
+    </script>
+
+    <script src="caesar.js"></script>
+</body>
+</html>

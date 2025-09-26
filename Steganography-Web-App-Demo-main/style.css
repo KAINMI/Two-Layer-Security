@@ -1,0 +1,32 @@
+ /* Ensure html & body take full height */
+html, body {
+    height: 100%;
+    margin: 0;
+    background-color: rgb(229, 229, 229);
+    display: flex;
+    flex-direction: column;
+}
+
+/* Main container grows to fill available space */
+.container {
+    flex: 1;
+}
+
+/* Add top margin to heading for spacing under navbar */
+#heading-container {
+    margin-top: 2rem; /* adjust if needed */
+}
+
+/* Footer styling */
+footer {
+    margin-top: auto;              /* pushes footer to bottom */
+    background-color: #0d6efd;     /* Bootstrap primary blue */
+    color: white;
+    font-size: 0.9rem;
+    width: 100%;
+    bottom: 0%;
+}
+main {
+    display: none !important;
+}
+

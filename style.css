@@ -1,0 +1,118 @@
+/* Import Google Font for a sleeker look (optional) */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #ffffff;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* Section spacing */
+section {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+}
+
+/* Hero / Intro adjustments */
+h1 {
+    font-weight: 700;
+    font-size: 2.5rem;
+}
+
+h3 {
+    font-weight: 500;
+    font-size: 1.5rem;
+}
+
+/* Buttons spacing */
+.btn {
+    font-weight: 500;
+    border-radius: 0.375rem;
+    transition: all 0.3s ease;
+}
+
+/* Button hover */
+.btn-primary:hover, 
+.btn-outline-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* Image styles in hero */
+img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.15);
+}
+
+/* About section text */
+.bg-light p {
+    font-size: 1.1rem;
+}
+
+/* Footer */
+footer {
+    background-color: #f8f9fa;
+    font-size: 0.9rem;
+}
+
+footer small {
+    color: white;
+}
+
+.animation-box {
+  perspective: 1000px;
+  position: relative;
+  overflow: hidden;
+  height: 200px;
+}
+
+.rotate-3d {
+  width: 150px;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 1rem;
+  background-color: white;
+  box-shadow: 0 0 30px rgba(0, 123, 255, 0.2);
+  transition: transform 1.5s ease-in-out;
+  transform-style: preserve-3d;
+  animation: rotateY 5s infinite linear;
+}
+
+@keyframes rotateY {
+  from {
+    transform: rotateY(0deg);
+  }
+  to {
+    transform: rotateY(360deg);
+  }
+}
+
+/* Text Disappearing into the Icon */
+.absorb-text {
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  right: 0;
+  opacity: 1;
+  animation: absorbUp 4s ease-in-out infinite;
+}
+
+@keyframes absorbUp {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  70% {
+    transform: translateY(-30px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
